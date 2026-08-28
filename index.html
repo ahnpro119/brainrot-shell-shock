@@ -165,34 +165,43 @@
     #fPause .pause-actions { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:12px; }
 
     #fTankSelect {
-      display:none !important; overflow-x:hidden; overflow-y:auto;
+      display:none !important; overflow:hidden !important;
       justify-content:flex-start !important; align-items:stretch !important;
-      padding:8px 10px 14px; z-index:35 !important;
+      padding:6px 8px 0; z-index:35 !important;
       background:rgba(8,10,20,.98) !important;
+      touch-action:pan-y;
     }
     #fTankSelect.show { display:flex !important; flex-direction:column !important; }
     .tank-select-title { color:#ffeb3b; margin:4px 0 6px; font-size:20px; text-shadow:2px 2px #000; text-align:center; flex:0 0 auto; }
     .tank-select-sub { color:#9adfff; font-size:12px; margin-bottom:8px; text-align:center; flex:0 0 auto; }
     .tank-grid {
       display:grid !important;
-      grid-template-columns:repeat(3, minmax(0,1fr));
-      gap:8px; width:100%; max-width:640px; margin:0 auto 10px;
-      flex:0 0 auto; min-height:120px;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:6px; width:100%; max-width:720px; margin:0 auto;
+      flex:1 1 auto; min-height:0; overflow-y:auto; overflow-x:hidden;
+      -webkit-overflow-scrolling:touch; touch-action:pan-y;
+      padding-bottom:6px;
     }
     .tank-card {
-      background:#14182a; border:2px solid #3d4668; border-radius:10px; padding:8px 4px 6px;
-      cursor:pointer; color:#ddd; font-size:11px; font-weight:800; min-height:78px;
+      background:#14182a; border:2px solid #3d4668; border-radius:10px; padding:4px 2px 4px;
+      cursor:pointer; color:#ddd; font-size:11px; font-weight:800; min-height:58px;
       display:flex !important; flex-direction:column; align-items:center; justify-content:center; gap:4px;
       -webkit-user-select:none; user-select:none; width:100%;
       pointer-events:auto;
     }
-    .tank-card canvas { width:56px; height:36px; image-rendering:pixelated; display:block; }
+    .tank-card canvas { width:48px; height:30px; image-rendering:pixelated; display:block; }
     .tank-card .tn { color:#fff; font-size:11px; line-height:1.2; text-align:center; }
     .tank-card.selected { border-color:#00e5ff; background:#1a3040; box-shadow:0 0 0 2px rgba(0,229,255,.35); }
     .tank-card.rare { border-color:#ff1744; }
     .tank-card.rare .tn { color:#ff8a80; }
-    .tank-select-actions { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:6px; flex:0 0 auto; }
-    .tank-select-actions .btn { min-height:42px; font-size:15px; padding:10px 18px; }
+    .tank-select-actions {
+      display:flex; gap:8px; flex-wrap:nowrap; justify-content:center; align-items:center;
+      flex:0 0 auto; width:100%;
+      padding:8px 8px max(10px, env(safe-area-inset-bottom));
+      background:rgba(8,10,20,.96);
+      border-top:1px solid rgba(0,229,255,.25);
+    }
+    .tank-select-actions .btn { min-height:40px; font-size:14px; padding:8px 14px; flex:1 1 auto; max-width:180px; }
     #tankConfirmBtn:disabled { opacity:.4; filter:grayscale(.4); pointer-events:none; box-shadow:none; }
     .btn-random { background:linear-gradient(#7c4dff,#4527a0); box-shadow:0 4px 0 #2a1760; }
     .btn-back { background:linear-gradient(#555,#222); box-shadow:0 4px 0 #111; }
@@ -1742,7 +1751,7 @@
     requestAnimationFrame(gameLoop);
   }
   document.addEventListener('selectstart', e=>{ if(e.target.closest('button,#touch-hud,#fortress-game')) e.preventDefault(); });
-  document.addEventListener('touchmove', e=>{ if(e.target.closest('#touch-hud,#fortress-game,#intro,#stage')) e.preventDefault(); }, {passive:false});
+  document.addEventListener('touchmove', e=>{ if(e.target.closest('#fTankSelect,.tank-grid,#tankPopup')) return; if(e.target.closest('#touch-hud,#fortress-game,#intro,#stage')) e.preventDefault(); }, {passive:false});
   window.addEventListener('resize', applyLandscapeView);
   window.addEventListener('orientationchange', function(){ setTimeout(applyLandscapeView, 250); });
   applyLandscapeView();
