@@ -1709,7 +1709,7 @@
             document.getElementById('fAngle').innerText=String(Math.round(p1.angle)); document.getElementById('fP2Angle').innerText=String(Math.round(p2.angle));
           }
         }
-        if(isCharging){ currentPower+=powerDir*0.35; if(currentPower>=100){currentPower=100;powerDir=-1;} if(currentPower<=0){currentPower=0;powerDir=1;} document.getElementById('fPowerBar').style.width=currentPower+'%'; document.getElementById('fPowerLabel').textContent='파워 '+Math.round(currentPower)+'%'; }
+        if(isCharging){ currentPower+=powerDir*0.455; if(currentPower>=100){currentPower=100;powerDir=-1;} if(currentPower<=0){currentPower=0;powerDir=1;} document.getElementById('fPowerBar').style.width=currentPower+'%'; document.getElementById('fPowerLabel').textContent='파워 '+Math.round(currentPower)+'%'; }
         if(turn==='P1') drawTrajectory(p1); else if(gameMode==='PVP') drawTrajectory(p2);
       }
       drawPixelTank(p1,true); drawPixelTank(p2,false); drawSpeechBubbles();
